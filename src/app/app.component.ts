@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CounterComponent } from './counter/counter.component';
 
@@ -10,7 +10,14 @@ import { CounterComponent } from './counter/counter.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  
+  counter:number = 0;
+
+  ngOnInit(): void {
+    this.counter = parseInt(sessionStorage.getItem('counter')!) || 0;
+  }
+  
   title: string = 'Hello World! From Angular';
   
   subTitle: string = 'Contador con estado de sesión'
@@ -19,9 +26,15 @@ export class AppComponent {
 
   visible: boolean = false;
 
+  
+
   setVisible(): void{
     this.visible = this.visible? false:true;
     console.log("Hemos hecho click en setVisible");
+  }
+
+  setCounterParent(counterParent:number):void{
+    this.counter = counterParent;
   }
   
   //Recomendable usar comilla simple para código. 
